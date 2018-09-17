@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlTeamFootball"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/ivTeamFootball"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/img_acm"
+        android:contentDescription="@string/app_name"/>
+
+    <TextView
+        android:id="@+id/tvTeamFootball"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:textSize="15sp"
+        android:text="Barcelona FC"
+        android:gravity="center_vertical"
+        android:textColor="@android:color/black"
+        android:layout_alignTop="@+id/ivTeamFootball"
+        android:layout_alignBottom="@+id/ivTeamFootball"
+        android:layout_toRightOf="@+id/ivTeamFootball"/>
+
+</RelativeLayout>

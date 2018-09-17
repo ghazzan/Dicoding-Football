@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Dicoding Football</string>
+
+    <string-array name="club_name">
+        <item>Barcelona FC</item>
+        <item>Real Madrid FC</item>
+        <item>Bayern Munchen FC</item>
+        <item>Manchester City FC</item>
+        <item>Manchester United FC</item>
+        <item>Chelsea FC</item>
+        <item>AC Milan FC</item>
+        <item>Arsenal FC</item>
+    </string-array>
+
+    <array name="club_image">
+        <item>@drawable/img_barca</item>
+        <item>@drawable/img_madrid</item>
+        <item>@drawable/img_bayern</item>
+        <item>@drawable/img_city</item>
+        <item>@drawable/img_mu</item>
+        <item>@drawable/img_chelsea</item>
+        <item>@drawable/img_acm</item>
+        <item>@drawable/img_arsenal</item>
+    </array>
+
+    <string-array name="content_club">
+        <item>This is Barcelona FC Lorem epsum</item>
+        <item>This is Real Madrid FC epsum Lorem</item>
+        <item>This is Bayern Munchen FC Qwerty</item>
+        <item>This is Manchaster City FC asdfg</item>
+        <item>This is Manchaster United FC Sama dengan atas</item>
+        <item>This is Chelsea FC Islan coy</item>
+        <item>This is AC Milan FC Dingin Brrrr</item>
+        <item>This is Arsenal FC zxcvb</item>
+    </string-array>
+</resources>
