@@ -31,15 +31,5 @@ object TheSportsDBApi {
                     Log.i("TheSportsDB", "Failed FUEL action")
             }
         }*/
-
-        /*"/get".httpGet().responseString { request, response, result ->
-            //make a GET to https://httpbin.org/get and do something with response
-            val (data, error) = result
-            if (error == null) {
-                //do something when success
-            } else {
-                //error handling
-            }
-        }*/
     }
 }

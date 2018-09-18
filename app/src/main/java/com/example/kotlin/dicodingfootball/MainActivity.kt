@@ -1,22 +1,22 @@
 package com.example.kotlin.dicodingfootball
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.os.StrictMode
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import com.example.kotlin.dicodingfootball.`interface`.OnItemClickListener
 import com.example.kotlin.dicodingfootball.adapter.FootballTeamAdapter
+import com.example.kotlin.dicodingfootball.entity.EventEntity
 import com.example.kotlin.dicodingfootball.entity.FootballEntity
-import com.example.kotlin.dicodingfootball.network.ApiRepository
-import com.example.kotlin.dicodingfootball.network.TheSportsDBApi
+import com.example.kotlin.dicodingfootball.presenter.MainPresenter
+import com.example.kotlin.dicodingfootball.view.MainView
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
-class MainActivity : AppCompatActivity(), OnItemClickListener {
+class MainActivity : AppCompatActivity(), OnItemClickListener, MainView {
 
     private var items: MutableList<FootballEntity> = mutableListOf()
+    private var presenter: MainPresenter = MainPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,11 +25,6 @@ class MainActivity : AppCompatActivity(), OnItemClickListener {
         initData()
         rvFootballTeam.layoutManager = LinearLayoutManager(this)
         rvFootballTeam.adapter = FootballTeamAdapter(this, items, this)
-    }
-
-    override fun onClick(item: FootballEntity) {
-        toast("You clicked ${item.name}")
-        startActivity<FootballDetailActivity>(FootballDetailActivity.KEY_FOOTBALL_VALUE to item)
     }
 
     private fun initData(){
@@ -42,12 +37,27 @@ class MainActivity : AppCompatActivity(), OnItemClickListener {
             items.add(FootballEntity(name[i], image.getResourceId(i, 0), description[i]))
         }
 
-        Thread().run {
-            /*val repo = ApiRepository()
-            Log.i("MainActivity", "ApiRepository ${repo.doRequest(TheSportsDBApi.getTeams("English"))}")*/
-            TheSportsDBApi.getTeam()
-        }
+        presenter.getMatchEvents()
+    }
 
+    override fun onClick(item: FootballEntity) {
+        toast("You clicked ${item.name}")
+        startActivity<FootballDetailActivity>(FootballDetailActivity.KEY_FOOTBALL_VALUE to item)
+    }
 
+    override fun showLoading() {
+        toast("Loading ....")
+    }
+
+    override fun hideLoading() {
+        toast("Hide Loading ...")
+    }
+
+    override fun showWarning(message: String) {
+        toast("Show Warning !!!")
+    }
+
+    override fun showTeamList(list: List<EventEntity>?) {
+        toast("Succeed show team list ")
     }
 }
