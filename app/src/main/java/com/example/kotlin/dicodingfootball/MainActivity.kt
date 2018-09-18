@@ -2,10 +2,14 @@ package com.example.kotlin.dicodingfootball
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.StrictMode
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import com.example.kotlin.dicodingfootball.`interface`.OnItemClickListener
 import com.example.kotlin.dicodingfootball.adapter.FootballTeamAdapter
 import com.example.kotlin.dicodingfootball.entity.FootballEntity
+import com.example.kotlin.dicodingfootball.network.ApiRepository
+import com.example.kotlin.dicodingfootball.network.TheSportsDBApi
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -38,6 +42,12 @@ class MainActivity : AppCompatActivity(), OnItemClickListener {
             items.add(FootballEntity(name[i], image.getResourceId(i, 0), description[i]))
         }
 
-        //image.recycle()
+        Thread().run {
+            /*val repo = ApiRepository()
+            Log.i("MainActivity", "ApiRepository ${repo.doRequest(TheSportsDBApi.getTeams("English"))}")*/
+            TheSportsDBApi.getTeam()
+        }
+
+
     }
 }
