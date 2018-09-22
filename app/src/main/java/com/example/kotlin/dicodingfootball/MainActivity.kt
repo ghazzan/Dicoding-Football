@@ -1,6 +1,8 @@
 package com.example.kotlin.dicodingfootball
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Parcel
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.example.kotlin.dicodingfootball.`interface`.OnItemClickListener
@@ -13,7 +15,15 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
+@SuppressLint("ParcelCreator")
 class MainActivity : AppCompatActivity(), OnItemClickListener, MainView {
+    override fun writeToParcel(p0: Parcel?, p1: Int) {
+
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
 
     private var items: MutableList<FootballEntity> = mutableListOf()
     private var presenter: MainPresenter = MainPresenter(this)
@@ -55,9 +65,5 @@ class MainActivity : AppCompatActivity(), OnItemClickListener, MainView {
 
     override fun showWarning(message: String) {
         toast("Show Warning !!!")
-    }
-
-    override fun showTeamList(list: List<EventEntity>?) {
-        toast("Succeed show team list ")
     }
 }

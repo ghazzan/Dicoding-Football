@@ -1,10 +1,9 @@
 package com.example.kotlin.dicodingfootball.view
 
-import com.example.kotlin.dicodingfootball.entity.EventEntity
+import android.os.Parcelable
 
-interface MainView {
+interface MainView: Parcelable {
     fun showLoading()
     fun hideLoading()
     fun showWarning(message: String)
-    fun showTeamList(list: List<EventEntity>?)
 }

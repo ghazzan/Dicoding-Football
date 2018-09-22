@@ -8,9 +8,17 @@ import com.example.kotlin.dicodingfootball.entity.EventEntity
 
 class MatchEventItem(view: View): RecyclerView.ViewHolder(view) {
 
-    private val text1 = view.findViewById<TextView>(R.id.tvEvent1)
+    private val tvDate = view.findViewById<TextView>(R.id.tvEventDate)
+    private val tvNameHome = view.findViewById<TextView>(R.id.tvHomeName)
+    private val tvNameAway = view.findViewById<TextView>(R.id.tvAwayName)
+    private val tvScoreHome = view.findViewById<TextView>(R.id.tvScoreHome)
+    private val tvScoreAway = view.findViewById<TextView>(R.id.tvScoreAway)
 
     fun bindEvent(entity: EventEntity){
-        text1.text = entity.idEvent
+        tvDate.text = entity.strDate
+        tvNameHome.text = entity.strHomeTeam
+        tvNameAway.text = entity.strAwayTeam
+        tvScoreHome.text = entity.intHomeScore.toString()
+        tvScoreAway.text = entity.intAwayScore.toString()
     }
 }
