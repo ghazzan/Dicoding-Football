@@ -4,9 +4,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
 import com.example.kotlin.dicodingfootball.R
+import com.example.kotlin.dicodingfootball.`interface`.OnEventClickListener
+import com.example.kotlin.dicodingfootball.`interface`.OnItemClickListener
 import com.example.kotlin.dicodingfootball.entity.EventEntity
 
-class MatchEventItem(view: View): RecyclerView.ViewHolder(view) {
+class MatchEventItem(val view: View): RecyclerView.ViewHolder(view) {
 
     private val tvDate = view.findViewById<TextView>(R.id.tvEventDate)
     private val tvNameHome = view.findViewById<TextView>(R.id.tvHomeName)
@@ -14,11 +16,15 @@ class MatchEventItem(view: View): RecyclerView.ViewHolder(view) {
     private val tvScoreHome = view.findViewById<TextView>(R.id.tvScoreHome)
     private val tvScoreAway = view.findViewById<TextView>(R.id.tvScoreAway)
 
-    fun bindEvent(entity: EventEntity){
+    fun bindEvent(entity: EventEntity, listener: OnEventClickListener){
         tvDate.text = entity.strDate
         tvNameHome.text = entity.strHomeTeam
         tvNameAway.text = entity.strAwayTeam
         tvScoreHome.text = entity.intHomeScore.toString()
         tvScoreAway.text = entity.intAwayScore.toString()
+
+        view.setOnClickListener {
+            listener.onClick(entity)
+        }
     }
 }

@@ -7,15 +7,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.kotlin.dicodingfootball.DetailEventActivity
 import com.example.kotlin.dicodingfootball.R
+import com.example.kotlin.dicodingfootball.`interface`.OnEventClickListener
 import com.example.kotlin.dicodingfootball.adapter.MatchListAdapter
 import com.example.kotlin.dicodingfootball.entity.EventEntity
 import com.example.kotlin.dicodingfootball.presenter.EventPresenter
 import com.example.kotlin.dicodingfootball.view.EventView
 import com.example.kotlin.dicodingfootball.view.MainView
 import kotlinx.android.synthetic.main.fragment_match_today.*
+import org.jetbrains.anko.support.v4.startActivity
 
-class MatchTodayFragment(): Fragment(), EventView {
+class MatchTodayFragment(): Fragment(), EventView, OnEventClickListener {
 
     private var mainListener: MainView? = null
     private var eventPresenter: EventPresenter? = null
@@ -39,13 +42,17 @@ class MatchTodayFragment(): Fragment(), EventView {
     }
 
     override fun showTeamList(list: List<EventEntity>?) {
-        context?.let {
-            list?.apply {
+        context?.takeIf { list != null }?.apply {
+            rvMatchToday.layoutManager = LinearLayoutManager(this)
+            list?.let {
                 isLoadedToday = true
-                rvMatchToday.layoutManager = LinearLayoutManager(it)
-                rvMatchToday.adapter = MatchListAdapter(it, this)
+                rvMatchToday.adapter = MatchListAdapter(this, it, this@MatchTodayFragment)
             }
         }
+    }
+
+    override fun onClick(event: EventEntity) {
+        startActivity<DetailEventActivity>()
     }
 
     private fun loadData(){

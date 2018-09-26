@@ -5,10 +5,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.kotlin.dicodingfootball.R
+import com.example.kotlin.dicodingfootball.`interface`.OnEventClickListener
 import com.example.kotlin.dicodingfootball.entity.EventEntity
 import com.example.kotlin.dicodingfootball.item.MatchEventItem
 
-class MatchListAdapter(private val context: Context, private val items: List<EventEntity>): RecyclerView.Adapter<MatchEventItem>() {
+class MatchListAdapter(private val context: Context, private val items: List<EventEntity>, val listener: OnEventClickListener): RecyclerView.Adapter<MatchEventItem>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchEventItem {
         return MatchEventItem(LayoutInflater.from(context).inflate(R.layout.item_match_football, parent, false))
     }
@@ -18,6 +19,6 @@ class MatchListAdapter(private val context: Context, private val items: List<Eve
     }
 
     override fun onBindViewHolder(holder: MatchEventItem, position: Int) {
-        holder.bindEvent(items[position])
+        holder.bindEvent(items[position], listener)
     }
 }

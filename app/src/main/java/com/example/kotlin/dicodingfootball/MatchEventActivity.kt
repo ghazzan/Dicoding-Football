@@ -50,12 +50,10 @@ class MatchEventActivity() : AppCompatActivity(), MainView {
     }
 
     override fun showLoading() {
-        Log.i("MatchEventAct", "ShowLoading from main, Alhamdulillah")
         rlMainLoading.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
-        Log.i("MatchEventAct", "hideLoading from main, Done")
         rlMainLoading.visibility = View.GONE
     }
 
