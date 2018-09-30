@@ -20,7 +20,6 @@
             android:id="@+id/tvEventDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Rabu, 26 September 2018"
             android:textColor="@color/colorPrimary"
             android:textSize="15sp"
             android:gravity="center_horizontal"
@@ -44,7 +43,6 @@
             android:id="@+id/tvEventHomeScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2"
             android:textSize="17sp"
             app:layout_constraintRight_toLeftOf="@+id/tvEventVsTitle"
             app:layout_constraintBaseline_toBaselineOf="@+id/tvEventVsTitle"/>
@@ -53,7 +51,6 @@
             android:id="@+id/tvEventAwayScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="5"
             android:textSize="17sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/tvEventVsTitle"
             app:layout_constraintLeft_toRightOf="@+id/tvEventVsTitle"/>
@@ -62,7 +59,6 @@
             android:id="@+id/ivEventHome"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="@color/cardview_dark_background"
             android:layout_marginTop="10dp"
             app:layout_constraintTop_toBottomOf="@+id/tvEventDate"
             app:layout_constraintLeft_toLeftOf="parent"/>
@@ -72,7 +68,6 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginTop="10dp"
-            android:background="@color/black_transparent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvEventDate"/>
 
@@ -80,7 +75,6 @@
             android:id="@+id/tvEventHomeTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Indonesia"
             android:textSize="17sp"
             android:textColor="@color/colorPrimary"
             app:layout_constraintTop_toBottomOf="@+id/ivEventHome"
@@ -91,7 +85,6 @@
             android:id="@+id/tvEventAwayTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Indonesia"
             android:textSize="17sp"
             android:textColor="@color/colorPrimary"
             app:layout_constraintTop_toBottomOf="@+id/ivEventAway"
@@ -103,7 +96,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:text="4-3-2-1"
             app:layout_constraintTop_toBottomOf="@+id/tvEventHomeTitle"
             app:layout_constraintLeft_toLeftOf="@+id/tvEventHomeTitle"
             app:layout_constraintRight_toRightOf="@+id/tvEventHomeTitle" />
@@ -113,7 +105,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:text="4-3-2-1"
             app:layout_constraintTop_toBottomOf="@+id/tvEventAwayTitle"
             app:layout_constraintLeft_toLeftOf="@+id/tvEventAwayTitle"
             app:layout_constraintRight_toRightOf="@+id/tvEventAwayTitle" />
@@ -137,7 +128,6 @@
                 android:id="@+id/tvEventGoalsHome"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="46': Hudan; 46': Hudan 46': Hudan"
                 android:textSize="15sp"
                 android:gravity="start"
                 android:layout_weight="1"/>
@@ -154,7 +144,6 @@
                 android:id="@+id/tvEventGoalsAway"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="46': Hudan;"
                 android:textSize="15sp"
                 android:gravity="end"
                 android:layout_weight="1"/>
@@ -177,7 +166,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:text="7"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintBaseline_toBaselineOf="@+id/tvEventShotsTitle" />
 
@@ -186,7 +174,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:text="4"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBaseline_toBaselineOf="@+id/tvEventShotsTitle"/>
 
@@ -224,7 +211,6 @@
             android:id="@+id/tvEventGoalkeeperHome"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Valentino Rossi"
             android:textSize="15sp"
             android:layout_marginRight="5dp"
             app:layout_constraintRight_toLeftOf="@+id/tvEventGoalkeeperTitle"
@@ -235,7 +221,6 @@
             android:id="@+id/tvEventGoalkeeperAway"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Valentino Rossi"
             android:textSize="15sp"
             android:gravity="end"
             android:layout_marginLeft="5dp"
@@ -254,7 +239,6 @@
                 android:id="@+id/tvEventDefenseHome"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="46': Hudan; 46': Hudan 46': Hudan"
                 android:textSize="15sp"
                 android:gravity="start"
                 android:layout_weight="1"/>
@@ -271,7 +255,6 @@
                 android:id="@+id/tvEventDefenseAway"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="46': Hudan;"
                 android:textSize="15sp"
                 android:gravity="end"
                 android:layout_weight="1"/>
@@ -288,7 +271,6 @@
                 android:id="@+id/tvEventMidfieldHome"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="46': Hudan; 46': Hudan 46': Hudan"
                 android:textSize="15sp"
                 android:gravity="start"
                 android:layout_weight="1"/>
@@ -305,7 +287,6 @@
                 android:id="@+id/tvEventMidfieldAway"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="46': Hudan;"
                 android:textSize="15sp"
                 android:gravity="end"
                 android:layout_weight="1"/>
@@ -322,7 +303,6 @@
                 android:id="@+id/tvEventForwardHome"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="46': Hudan; 46': Hudan 46': Hudan"
                 android:textSize="15sp"
                 android:gravity="start"
                 android:layout_weight="1"/>
@@ -339,7 +319,6 @@
                 android:id="@+id/tvEventForwardAway"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="46': Hudan;"
                 android:textSize="15sp"
                 android:gravity="end"
                 android:layout_weight="1"/>
@@ -356,7 +335,6 @@
                 android:id="@+id/tvEventSubstitutesHome"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="46': Hudan; 46': Hudan 46': Hudan"
                 android:textSize="15sp"
                 android:gravity="start"
                 android:layout_weight="1"/>
@@ -373,10 +351,27 @@
                 android:id="@+id/tvEventSubstitutesAway"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="46': Hudan;"
                 android:textSize="15sp"
                 android:gravity="end"
                 android:layout_weight="1"/>
         </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlDetailLoading"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <ProgressBar
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
+        </RelativeLayout>
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

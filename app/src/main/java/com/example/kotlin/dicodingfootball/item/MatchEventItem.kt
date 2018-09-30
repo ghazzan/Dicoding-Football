@@ -20,8 +20,8 @@ class MatchEventItem(val view: View): RecyclerView.ViewHolder(view) {
         tvDate.text = entity.strDate
         tvNameHome.text = entity.strHomeTeam
         tvNameAway.text = entity.strAwayTeam
-        tvScoreHome.text = entity.intHomeScore.toString()
-        tvScoreAway.text = entity.intAwayScore.toString()
+        tvScoreHome.text = entity.intHomeScore?.toString() ?: "-"
+        tvScoreAway.text = entity.intAwayScore?.toString() ?: "-"
 
         view.setOnClickListener {
             listener.onClick(entity)

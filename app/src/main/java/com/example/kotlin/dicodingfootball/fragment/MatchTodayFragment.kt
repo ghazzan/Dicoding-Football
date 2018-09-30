@@ -52,7 +52,7 @@ class MatchTodayFragment(): Fragment(), EventView, OnEventClickListener {
     }
 
     override fun onClick(event: EventEntity) {
-        startActivity<DetailEventActivity>()
+        startActivity<DetailEventActivity>(DetailEventActivity.KEY_EVENT_ID to event.idEvent)
     }
 
     private fun loadData(){
