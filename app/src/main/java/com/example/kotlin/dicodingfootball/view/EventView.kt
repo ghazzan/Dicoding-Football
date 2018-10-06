@@ -8,4 +8,8 @@ interface EventView {
     interface DetailEvent {
         fun showDetail(data: EventEntity)
     }
+
+    interface LoveEvent{
+        fun showLoveList(list: List<EventEntity>)
+    }
 }

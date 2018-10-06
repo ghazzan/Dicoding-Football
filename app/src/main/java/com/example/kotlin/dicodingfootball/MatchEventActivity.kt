@@ -1,16 +1,13 @@
 package com.example.kotlin.dicodingfootball
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.example.kotlin.dicodingfootball.adapter.SlideMatchAdapter
-import com.example.kotlin.dicodingfootball.entity.EventEntity
 import com.example.kotlin.dicodingfootball.view.MainView
 import kotlinx.android.synthetic.main.activity_match_event.*
 import org.jetbrains.anko.support.v4.onPageChangeListener

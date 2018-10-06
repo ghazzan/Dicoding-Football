@@ -12,6 +12,7 @@ class EventPresenter() {
 
     private var eventView: EventView? = null
     private var eventDetailView: EventView.DetailEvent? = null
+    private var eventLoveView: EventView.LoveEvent? = null
 
     constructor(mEvent: EventView): this(){
         eventView = mEvent
@@ -19,6 +20,10 @@ class EventPresenter() {
 
     constructor(mDetailEvent: EventView.DetailEvent): this(){
         eventDetailView = mDetailEvent
+    }
+
+    constructor(mLoveEvent: EventView.LoveEvent): this(){
+        eventLoveView = mLoveEvent
     }
 
     init {
@@ -71,5 +76,9 @@ class EventPresenter() {
                         detailEvent.showTeam(teamCode, result.get().teams[0])
                     }
                 }
+    }
+
+    fun getListTeam(){
+
     }
 }

@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.example.kotlin.dicodingfootball.`interface`.OnItemClickListener
 import com.example.kotlin.dicodingfootball.adapter.FootballTeamAdapter
-import com.example.kotlin.dicodingfootball.entity.EventEntity
 import com.example.kotlin.dicodingfootball.entity.FootballEntity
 import com.example.kotlin.dicodingfootball.presenter.MainPresenter
 import com.example.kotlin.dicodingfootball.view.MainView
