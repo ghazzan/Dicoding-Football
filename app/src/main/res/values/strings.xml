@@ -37,4 +37,5 @@
     <string name="title_activity_match_event">MatchEventActivity</string>
     <string name="title_navigation_today">Prev Match</string>
     <string name="title_navigation_tomorrow">Next Match</string>
+    <string name="title_navigation_favorites">Favorites</string>
 </resources>

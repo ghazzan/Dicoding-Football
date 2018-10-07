@@ -3,7 +3,6 @@ package com.example.kotlin.dicodingfootball.fragment
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +17,7 @@ import com.example.kotlin.dicodingfootball.view.MainView
 import kotlinx.android.synthetic.main.fragment_match_today.*
 import org.jetbrains.anko.support.v4.startActivity
 
-class MatchTodayFragment(): Fragment(), EventView, OnEventClickListener {
+class MatchTodayFragment: Fragment(), EventView, OnEventClickListener {
 
     private var mainListener: MainView? = null
     private var eventPresenter: EventPresenter? = null

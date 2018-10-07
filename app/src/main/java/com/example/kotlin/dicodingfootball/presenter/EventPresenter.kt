@@ -1,29 +1,43 @@
 package com.example.kotlin.dicodingfootball.presenter
 
+import android.content.Context
+import android.util.Log
+import com.example.kotlin.dicodingfootball.database.DatabaseOpenHelper
 import com.example.kotlin.dicodingfootball.network.response.DetailTeamResponse
 import com.example.kotlin.dicodingfootball.network.response.MatchResponse
+import com.example.kotlin.dicodingfootball.table.Favorite
 import com.example.kotlin.dicodingfootball.view.EventView
 import com.example.kotlin.dicodingfootball.view.MainView
 import com.example.kotlin.dicodingfootball.view.TeamView
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.FuelManager
+import org.jetbrains.anko.db.classParser
+import org.jetbrains.anko.db.delete
+import org.jetbrains.anko.db.insert
+import org.jetbrains.anko.db.select
 
 class EventPresenter() {
 
+    private var context: Context? = null
     private var eventView: EventView? = null
     private var eventDetailView: EventView.DetailEvent? = null
     private var eventLoveView: EventView.LoveEvent? = null
+    private var dbHelper: DatabaseOpenHelper? = null
 
     constructor(mEvent: EventView): this(){
         eventView = mEvent
     }
 
-    constructor(mDetailEvent: EventView.DetailEvent): this(){
+    constructor(mContext: Context, mDetailEvent: EventView.DetailEvent, mDbHelper: DatabaseOpenHelper?): this(){
+        context = mContext
         eventDetailView = mDetailEvent
+        dbHelper = mDbHelper
     }
 
-    constructor(mLoveEvent: EventView.LoveEvent): this(){
+    constructor(mDbEvent: DatabaseOpenHelper?, mLoveEvent: EventView.LoveEvent): this(){
+        dbHelper = mDbEvent
         eventLoveView = mLoveEvent
+        showLog("Create from loveFragment $dbHelper")
     }
 
     init {
@@ -78,7 +92,60 @@ class EventPresenter() {
                 }
     }
 
-    fun getListTeam(){
+    fun setFavoriteEvent(id: Int, mainListener: MainView, favoriteEntity: Favorite){
+        mainListener.showLoading()
+        if (checkFavoriteState(id.toString())){
+            removeFavorite(id.toString())
+            mainListener.hideLoading()
+            eventDetailView?.unfavouriteResult()
+        }else{
+            addFavorite(favoriteEntity)
+            mainListener.hideLoading()
+            eventDetailView?.favoriteResult()
+        }
+    }
 
+    fun checkFavoriteState(id: String): Boolean{
+        var result = false
+        dbHelper?.use {
+            val item = select(Favorite.TABLE_FAVORITE).whereArgs("(${Favorite.EVENT_ID} = {id})", "id" to id)
+            result = item.parseList(classParser<Favorite>()).isNotEmpty()
+            showLog("Item are $item")
+            showLog("Favorite item ${item.parseList(classParser<Favorite>())}")
+        }
+        return result
+    }
+
+    private fun removeFavorite(id: String){
+        dbHelper?.use {
+            delete(Favorite.TABLE_FAVORITE, "(${Favorite.EVENT_ID} = {id})", "id" to id)
+        }
+    }
+
+    private fun addFavorite(entity: Favorite){
+        showLog("Insert Favorite $entity")
+        dbHelper?.use {
+            insert(Favorite.TABLE_FAVORITE,
+                    Favorite.EVENT_ID to entity.idEvent,
+                    Favorite.TEAM_AWAY_NAME to entity.strAwayTeam,
+                    Favorite.TEAM_HOME_NAME to entity.strHomeTeam,
+                    Favorite.TEAM_AWAY_SCORE to entity.intAwayScore,
+                    Favorite.TEAM_HOME_SCORE to entity.intHomeScore,
+                    Favorite.EVENT_DATE to entity.strDate)
+        }
+    }
+
+    fun getListTeam(){
+        dbHelper?.use {
+            val item = select(Favorite.TABLE_FAVORITE)
+            val result = item.parseList(classParser<Favorite>())
+            showLog("getListTeam $result")
+            eventLoveView?.showLoveList(result)
+        }
+        showLog("Database $dbHelper")
+    }
+
+    private fun showLog(message: String){
+        Log.i(EventPresenter@this::class.java.simpleName, message)
     }
 }

@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
 import com.example.kotlin.dicodingfootball.adapter.SlideMatchAdapter
+import com.example.kotlin.dicodingfootball.database.database
+import com.example.kotlin.dicodingfootball.presenter.EventPresenter
 import com.example.kotlin.dicodingfootball.view.MainView
 import kotlinx.android.synthetic.main.activity_match_event.*
 import org.jetbrains.anko.support.v4.onPageChangeListener
@@ -17,11 +19,15 @@ class MatchEventActivity() : AppCompatActivity(), MainView {
     private val navigationListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_today -> {
-                viewpager.currentItem = 0
+                viewpager.currentItem = SlideMatchAdapter.KEY_FRAGMENT_TODAY
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_tomorrow -> {
-                viewpager.currentItem = 1
+                viewpager.currentItem = SlideMatchAdapter.KEY_FRAGMENT_TOMORROW
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_favorite -> {
+                viewpager.currentItem = SlideMatchAdapter.KEY_FRAGMENT_FAVORITE
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -37,10 +43,10 @@ class MatchEventActivity() : AppCompatActivity(), MainView {
         viewpager.adapter = SlideMatchAdapter(this, supportFragmentManager)
         viewpager.onPageChangeListener {
             this.onPageSelected {
-                if (it == 0){
-                    navigation.selectedItemId = R.id.navigation_today
-                }else if (it == 1){
-                    navigation.selectedItemId = R.id.navigation_tomorrow
+                when (it) {
+                    SlideMatchAdapter.KEY_FRAGMENT_TODAY -> navigation.selectedItemId = R.id.navigation_today
+                    SlideMatchAdapter.KEY_FRAGMENT_TOMORROW -> navigation.selectedItemId = R.id.navigation_tomorrow
+                    SlideMatchAdapter.KEY_FRAGMENT_FAVORITE -> navigation.selectedItemId = R.id.navigation_favorite
                 }
             }
         }

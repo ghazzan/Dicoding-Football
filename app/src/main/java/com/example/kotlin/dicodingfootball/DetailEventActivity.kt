@@ -1,13 +1,17 @@
 package com.example.kotlin.dicodingfootball
 
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import com.example.kotlin.dicodingfootball.database.database
 import com.example.kotlin.dicodingfootball.entity.EventEntity
 import com.example.kotlin.dicodingfootball.entity.TeamEntity
 import com.example.kotlin.dicodingfootball.presenter.EventPresenter
+import com.example.kotlin.dicodingfootball.table.Favorite
 import com.example.kotlin.dicodingfootball.view.EventView
 import com.example.kotlin.dicodingfootball.view.MainView
 import com.example.kotlin.dicodingfootball.view.TeamView
@@ -15,6 +19,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.activity_detail_event.*
+import kotlinx.android.synthetic.main.toolbar_detail_event.*
 
 @Parcelize
 class DetailEventActivity: AppCompatActivity(), MainView, EventView.DetailEvent, TeamView {
@@ -53,6 +58,16 @@ class DetailEventActivity: AppCompatActivity(), MainView, EventView.DetailEvent,
         }
     }
 
+    override fun favoriteResult() {
+        Toast.makeText(this, "Berhasil tambahkan favorite", Toast.LENGTH_SHORT).show()
+        setupFavoriteState()
+    }
+
+    override fun unfavouriteResult() {
+        Toast.makeText(this, "Berhasil hapus favorite", Toast.LENGTH_SHORT).show()
+        setupFavoriteState()
+    }
+
     override fun showDetail(data: EventEntity) {
 
         loadTeamImage(data)
@@ -78,6 +93,26 @@ class DetailEventActivity: AppCompatActivity(), MainView, EventView.DetailEvent,
         tvEventForwardAway.text = data.strAwayLineupForward?: defaultNull
         tvEventSubstitutesHome.text = data.strHomeLineupSubstitutes?: defaultNull
         tvEventSubstitutesAway.text = data.strAwayLineupSubstitutes?: defaultNull
+
+        setupFavoriteAction(data)
+    }
+
+    private fun setupFavoriteAction(param: EventEntity){
+        val favoriteEntity = Favorite(
+                idEvent = param.idEvent,
+                strHomeTeam = param.strHomeTeam,
+                strAwayTeam = param.strAwayTeam,
+                intHomeScore = param.intHomeScore ?: 0,
+                intAwayScore = param.intAwayScore ?: 0,
+                strDate = param.strDate)
+
+        ivEventFavorite.setOnClickListener {
+            eventPresenter?.setFavoriteEvent(idEvent.toInt(), this, favoriteEntity)
+        }
+    }
+
+    private fun showLog(message: String){
+        Log.i(DetailEventActivity@this::class.java.simpleName, message)
     }
 
     private fun loadTeamImage(event: EventEntity){
@@ -105,16 +140,29 @@ class DetailEventActivity: AppCompatActivity(), MainView, EventView.DetailEvent,
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_event)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
         getParam()
+        setupFavoriteState()
 
-        eventPresenter = EventPresenter(this)
+        eventPresenter = EventPresenter(this, this, database)
         eventPresenter?.getDetailEvent(idEvent.toInt(),this)
+
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Match Detail"
     }
 
     private fun getParam(){
         idEvent = intent?.getStringExtra(KEY_EVENT_ID) ?: "0"
+    }
+
+    private fun setupFavoriteState(){
+        val isFavourite = eventPresenter?.checkFavoriteState(idEvent) ?: false
+        if (!isFavourite){
+            ivEventFavorite.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_add_favorite))
+        }else{
+            ivEventFavorite.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_added_to_favorites))
+        }
     }
 
     companion object {
