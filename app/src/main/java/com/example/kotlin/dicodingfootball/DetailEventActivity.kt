@@ -1,6 +1,7 @@
 package com.example.kotlin.dicodingfootball
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -47,6 +48,10 @@ class DetailEventActivity: AppCompatActivity(), MainView, EventView.DetailEvent,
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
+    override fun showSnackbar(message: String) {
+        Snackbar.make(detailEventView, message, Snackbar.LENGTH_SHORT).show()
+    }
+
     override fun showTeam(teamCode: Int, data: TeamEntity) {
         when(teamCode){
             KEY_TEAM_HOME -> {
@@ -59,13 +64,11 @@ class DetailEventActivity: AppCompatActivity(), MainView, EventView.DetailEvent,
     }
 
     override fun favoriteResult() {
-        Toast.makeText(this, "Berhasil tambahkan favorite", Toast.LENGTH_SHORT).show()
-        setupFavoriteState()
+        setFavoriteDrawable(true)
     }
 
     override fun unfavouriteResult() {
-        Toast.makeText(this, "Berhasil hapus favorite", Toast.LENGTH_SHORT).show()
-        setupFavoriteState()
+        setFavoriteDrawable(false)
     }
 
     override fun showDetail(data: EventEntity) {
@@ -95,6 +98,7 @@ class DetailEventActivity: AppCompatActivity(), MainView, EventView.DetailEvent,
         tvEventSubstitutesAway.text = data.strAwayLineupSubstitutes?: defaultNull
 
         setupFavoriteAction(data)
+
     }
 
     private fun setupFavoriteAction(param: EventEntity){
@@ -107,8 +111,12 @@ class DetailEventActivity: AppCompatActivity(), MainView, EventView.DetailEvent,
                 strDate = param.strDate)
 
         ivEventFavorite.setOnClickListener {
-            eventPresenter?.setFavoriteEvent(idEvent.toInt(), this, favoriteEntity)
+            setupEventFavorite(favoriteEntity)
         }
+    }
+
+    private fun setupEventFavorite(entity: Favorite){
+        eventPresenter?.setFavoriteEvent(idEvent.toInt(), this, entity)
     }
 
     private fun showLog(message: String){
@@ -141,12 +149,13 @@ class DetailEventActivity: AppCompatActivity(), MainView, EventView.DetailEvent,
         setContentView(R.layout.activity_detail_event)
 
         getParam()
-        setupFavoriteState()
 
         eventPresenter = EventPresenter(this, this, database)
         eventPresenter?.getDetailEvent(idEvent.toInt(),this)
 
         setSupportActionBar(toolbar)
+        setFavoriteDrawable(eventPresenter?.checkFavoriteState(idEvent) ?: false)
+
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Match Detail"
@@ -156,8 +165,7 @@ class DetailEventActivity: AppCompatActivity(), MainView, EventView.DetailEvent,
         idEvent = intent?.getStringExtra(KEY_EVENT_ID) ?: "0"
     }
 
-    private fun setupFavoriteState(){
-        val isFavourite = eventPresenter?.checkFavoriteState(idEvent) ?: false
+    private fun setFavoriteDrawable(isFavourite: Boolean){
         if (!isFavourite){
             ivEventFavorite.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_add_favorite))
         }else{

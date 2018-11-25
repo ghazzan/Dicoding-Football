@@ -2,7 +2,9 @@ package com.example.kotlin.dicodingfootball.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.Fragment
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,7 +14,6 @@ import com.example.kotlin.dicodingfootball.DetailEventActivity
 import com.example.kotlin.dicodingfootball.R
 import com.example.kotlin.dicodingfootball.`interface`.OnEventClickListener
 import com.example.kotlin.dicodingfootball.adapter.MatchListAdapter
-import com.example.kotlin.dicodingfootball.database.DatabaseOpenHelper
 import com.example.kotlin.dicodingfootball.database.database
 import com.example.kotlin.dicodingfootball.entity.EventEntity
 import com.example.kotlin.dicodingfootball.presenter.EventPresenter
@@ -44,14 +45,24 @@ class MatchFavoriteFragment: Fragment(), EventView.LoveEvent, OnEventClickListen
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         mContext = activity?.applicationContext
-        showLog("Context fragmet ${activity?.applicationContext?.database}")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        showLog("onViewCreated ${activity?.applicationContext?.database}")
         favoritePresenter = EventPresenter(mContext?.database, this)
         loadData()
+        setupListener(swipeFavorite)
+    }
+
+    private fun setupListener(swipeLayout: SwipeRefreshLayout){
+        swipeLayout.setOnRefreshListener {
+            Handler().postDelayed({
+                loadData()
+                swipeLayout.isRefreshing = false
+                Log.i("MatchFavoriteFragment", "Refreshing is false")
+                mainListener?.showSnackbar("Data Favorite Refreshed")
+            }, 1000)
+        }
     }
 
     override fun showLoveList(list: List<Favorite>?) {

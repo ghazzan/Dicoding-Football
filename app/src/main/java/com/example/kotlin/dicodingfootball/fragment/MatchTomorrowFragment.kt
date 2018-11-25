@@ -1,11 +1,8 @@
 package com.example.kotlin.dicodingfootball.fragment
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.Parcel
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

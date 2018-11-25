@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Parcel
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import com.example.kotlin.dicodingfootball.`interface`.OnItemClickListener
 import com.example.kotlin.dicodingfootball.adapter.FootballTeamAdapter
 import com.example.kotlin.dicodingfootball.entity.FootballEntity
@@ -16,6 +17,11 @@ import org.jetbrains.anko.toast
 
 @SuppressLint("ParcelCreator")
 class MainActivity : AppCompatActivity(), OnItemClickListener, MainView {
+
+    override fun showSnackbar(message: String) {
+        Log.i("MainActivity", "showSnackbar")
+    }
+
     override fun writeToParcel(p0: Parcel?, p1: Int) {
 
     }

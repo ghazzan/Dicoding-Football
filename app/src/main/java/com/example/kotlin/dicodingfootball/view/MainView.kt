@@ -6,4 +6,5 @@ interface MainView: Parcelable {
     fun showLoading()
     fun hideLoading()
     fun showWarning(message: String)
+    fun showSnackbar(message: String)
 }

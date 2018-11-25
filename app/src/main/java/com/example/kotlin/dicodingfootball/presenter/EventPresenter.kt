@@ -97,16 +97,19 @@ class EventPresenter() {
         if (checkFavoriteState(id.toString())){
             removeFavorite(id.toString())
             mainListener.hideLoading()
+            mainListener.showSnackbar("Removed to Favorite")
             eventDetailView?.unfavouriteResult()
         }else{
             addFavorite(favoriteEntity)
             mainListener.hideLoading()
+            mainListener.showSnackbar("Added to Favorite")
             eventDetailView?.favoriteResult()
         }
     }
 
     fun checkFavoriteState(id: String): Boolean{
         var result = false
+        showLog("checkFavoriteState $dbHelper")
         dbHelper?.use {
             val item = select(Favorite.TABLE_FAVORITE).whereArgs("(${Favorite.EVENT_ID} = {id})", "id" to id)
             result = item.parseList(classParser<Favorite>()).isNotEmpty()
